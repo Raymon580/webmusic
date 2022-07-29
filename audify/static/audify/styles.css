@@ -1,0 +1,17 @@
+/*#page-div {
+    display: flex;   
+    flex-wrap: wrap;
+}
+
+#left-half {
+    position: relative;
+}
+
+#left-half:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    border-right: 1px solid black;
+    top: 1%;
+    bottom: 1%;
+}*/
