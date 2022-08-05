@@ -1,0 +1,48 @@
+.left-canvas {
+    width: 25%;
+    position: relative;
+}
+
+.left-canvas::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    border-right: 1px solid black;
+    top: 5%;
+    bottom: 5%;
+}
+
+.right-canvas {
+    width: 75%;
+}
+
+#whole-canvas {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    padding: 10px;
+}
+
+a.navbar-brand {
+    color: grey;
+}
+
+#left-nav-icon {
+    position: relative;
+}
+
+#right-nav-icon {
+    padding-top: 5%;
+    margin-left: 5%;
+    position: relative;
+}
+
+#nav-icon {
+    display: flex;
+}
