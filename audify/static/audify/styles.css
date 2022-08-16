@@ -1,9 +1,9 @@
-.left-canvas {
+.leftCanvas {
     width: 25%;
     position: relative;
 }
 
-.left-canvas::after {
+.leftCanvas::after {
     content: '';
     position: absolute;
     right: 0;
@@ -12,11 +12,11 @@
     bottom: 5%;
 }
 
-.right-canvas {
+.rightCanvas {
     width: 75%;
 }
 
-#whole-canvas {
+#wholeCanvas {
     display: flex;
     flex-wrap: nowrap;
 }
@@ -33,16 +33,26 @@ a.navbar-brand {
     color: grey;
 }
 
-#left-nav-icon {
+#leftNavIcon {
     position: relative;
 }
 
-#right-nav-icon {
+#rightNavIcon {
     padding-top: 5%;
     margin-left: 5%;
     position: relative;
 }
 
-#nav-icon {
+#navIcon {
     display: flex;
+}
+
+div.centerDiv {
+    margin: 0 auto;
+    max-width: 40%;
+}
+
+div > h1 {
+    text-align: center;
+    padding: 10%;
 }

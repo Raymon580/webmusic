@@ -13,56 +13,73 @@
         <div class="centerDiv">
 
             <!--DESKTOP-->
-            <div class="d-none d-lg-block">     
-                <h1>Sign In</h1>
-
+            <div class="d-none d-lg-block">
+                <h1>Register</h1>
+    
                 {% if message %}
                     <div>{{ message }}</div>
                 {% endif %}
-
-                <form class="row g-3" action="{% url 'login' %}" method="post">
+    
+                <form class="row g-3" action="{% url 'register' %}" method="post">
                     {% csrf_token %}
                     <div class="col-12">
                         <input type="text" name="username" class="form-control" placeholder="Username">
                     </div>
-
+    
+                    <div class="col-12">
+                        <input type="email" name="email" class="form-control" placeholder="Email Address">
+                    </div>
+    
                     <div class="col-12">
                         <input type="password" name="password" class="form-control" placeholder="Password">
                     </div>
-
+    
+                    <div class="col-12">
+                        <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password">
+                    </div>
+    
                     <div class="col-12" style="text-align: center;">
-                        <button type="submit" class="btn btn-primary">Sign In</button>
+                        <button type="submit" class="btn btn-primary">Register</button>
                     </div>
                 </form>
-
-                Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+    
+                Already have an account? <a href="{% url 'login' %}">Log In here.</a>
             </div>
+
         </div>
 
         <!--MOBILE-->
-        <div class="d-lg-none">     
-            <h1>Sign In</h1>
+        <div class="d-lg-none">
+            <h1>Register</h1>
 
             {% if message %}
                 <div>{{ message }}</div>
             {% endif %}
 
-            <form class="row g-3" action="{% url 'login' %}" method="post">
+            <form class="row g-3" action="{% url 'register' %}" method="post">
                 {% csrf_token %}
                 <div class="col-12">
                     <input type="text" name="username" class="form-control" placeholder="Username">
                 </div>
 
                 <div class="col-12">
+                    <input type="email" name="email" class="form-control" placeholder="Email Address">
+                </div>
+
+                <div class="col-12">
                     <input type="password" name="password" class="form-control" placeholder="Password">
                 </div>
 
+                <div class="col-12">
+                    <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password">
+                </div>
+
                 <div class="col-12" style="text-align: center;">
-                    <button type="submit" class="btn btn-primary">Sign In</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
                 </div>
             </form>
 
-            Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+            Already have an account? <a href="{% url 'login' %}">Log In here.</a>
         </div>
     </body>
 </html>
