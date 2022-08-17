@@ -1,10 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
-from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse
 
+from .forms import UserForm
 from .models import User
 
 # Create your views here.
@@ -16,22 +16,28 @@ def index(request):
 
 def login_view(request):
     if request.method == "POST":
+        form = UserForm(request.POST)
 
-        # Attempt to sign user in
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
+        if form.is_valid():    
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
 
-        # Check if authentication successful
-        if user is not None:
-            login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            # Attempt to sign user in
+            user = authenticate(request, username=username, password=password)
+
+            # Check if authentication successful
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "audify/login.html", {
-                "message": "Invalid username and/or password."
+                "message": "Invalid username and/or password.",
+                "userForm": UserForm()
             })
     else:
-        return render(request, "audify/login.html")
+        return render(request, "audify/login.html", {
+            "userForm": UserForm()
+        })
 
 
 def logout_view(request):
@@ -41,31 +47,30 @@ def logout_view(request):
 
 def register(request):
     if request.method == "POST":
-        username = request.POST["username"]
-        email = request.POST["email"]
+        form = UserForm(request.POST)
 
-        # Ensure password matches confirmation
-        password = request.POST["password"]
-        confirmation = request.POST["confirmPassword"]
-        if password != confirmation:
-            return render(request, "audify/register.html", {
-                "message": "Passwords must match."
-            })
-        # Ensure password fields are not empty
-        elif password == "" or confirmation == "":
-            return render(request, "audify/register.html", {
-                "message": "Fill out password fields."
-            })
+        if form.is_valid() == True:
+            username = form.cleaned_data["username"]
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
 
-        # Attempt to create new user
-        try:
+            # Ensure password matches confirmation
+            confirmation = request.POST["confirmPassword"]
+            if password != confirmation:
+                return render(request, "audify/register.html", {
+                    "message": "Passwords must match.",
+                    "userForm": UserForm()
+                })
             user = User.objects.create_user(username, email, password)
             user.save()
-        except IntegrityError:
+            login(request, user)
+            return HttpResponseRedirect(reverse("index"))
+        else:
             return render(request, "audify/register.html", {
-                "message": "Username already taken."
+                "message": "Username already taken.",
+                "userForm": UserForm()
             })
-        login(request, user)
-        return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "audify/register.html")
+        return render(request, "audify/register.html", {
+            "userForm": UserForm()
+        })
