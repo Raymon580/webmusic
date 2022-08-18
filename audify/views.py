@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse
 
-from .forms import UserForm
+from .forms import RegistrationForm
 from .models import User
 
 # Create your views here.
@@ -16,27 +16,25 @@ def index(request):
 
 def login_view(request):
     if request.method == "POST":
-        form = UserForm(request.POST)
 
-        if form.is_valid():    
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password"]
+        username = request.POST["username"]
+        password = request.POST["password"]
 
-            # Attempt to sign user in
-            user = authenticate(request, username=username, password=password)
+        # Attempt to sign user in
+        user = authenticate(request, username=username, password=password)
 
-            # Check if authentication successful
-            if user is not None:
-                login(request, user)
-                return HttpResponseRedirect(reverse("index"))
+        # Check if authentication successful
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "audify/login.html", {
                 "message": "Invalid username and/or password.",
-                "userForm": UserForm()
+                "userForm": RegistrationForm()
             })
     else:
         return render(request, "audify/login.html", {
-            "userForm": UserForm()
+            "userForm": RegistrationForm()
         })
 
 
@@ -47,7 +45,7 @@ def logout_view(request):
 
 def register(request):
     if request.method == "POST":
-        form = UserForm(request.POST)
+        form = RegistrationForm(request.POST)
 
         if form.is_valid() == True:
             username = form.cleaned_data["username"]
@@ -59,7 +57,7 @@ def register(request):
             if password != confirmation:
                 return render(request, "audify/register.html", {
                     "message": "Passwords must match.",
-                    "userForm": UserForm()
+                    "userForm": RegistrationForm()
                 })
             user = User.objects.create_user(username, email, password)
             user.save()
@@ -68,9 +66,9 @@ def register(request):
         else:
             return render(request, "audify/register.html", {
                 "message": "Username already taken.",
-                "userForm": UserForm()
+                "userForm": RegistrationForm()
             })
     else:
         return render(request, "audify/register.html", {
-            "userForm": UserForm()
+            "userForm": RegistrationForm()
         })

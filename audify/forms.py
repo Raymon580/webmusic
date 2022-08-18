@@ -2,7 +2,8 @@ from django import forms
 
 from .models import User
 
-class UserForm(forms.ModelForm):
+
+class RegistrationForm(forms.ModelForm):
 
     class Meta:
 
