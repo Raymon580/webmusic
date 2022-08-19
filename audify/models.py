@@ -13,7 +13,7 @@ class Artist(models.Model):
 
     def __str__(self):
         return self.name
-
+    
 
 class Genre(models.Model):
     genre = models.CharField(max_length=32)
@@ -27,6 +27,13 @@ class Song(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name="songs")
     ft_artists = models.ManyToManyField(Artist, blank=True)
     genre = models.ForeignKey(Genre, on_delete=models.PROTECT, related_name="allGenreSongs")
+    file = models.FileField(upload_to = 'songs')
+
+    def __str__(self):
+        if self.ft_artists == "":
+            return f"{self.artist} - {self.title}" 
+        else:
+            return f"{self.artist} ft. {self.ft_artists} - {self.title}"
 
 
 class Album(models.Model):
