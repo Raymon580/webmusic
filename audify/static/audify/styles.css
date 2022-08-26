@@ -1,40 +1,29 @@
 @import url("https://fonts.googleapis.com/css?family=Sen&display=swap");
 body {
-  background: #0a4257;
-  color: #c06162;
-  font-family: 'Sen';
+    background: #0a4257;
+    color: #c06162;
+    font-family: 'Sen';
+    min-height: 100vh;
+    position: absolute;
+    display: block;
+}
+
+html, body {
+    min-height: 100%;
+    min-width: 100%;
 }
 
 .card {
     background: rgba(24, 6, 73, 0.863);
 }
 
-.offcanvas {
-    background: #19a5d6;
+#footerDiv {
+    position: fixed;
+    bottom: 0;
+    min-width: 100%;
 }
 
-.leftCanvas {
-    width: 25%;
-    position: relative;
-}
-.leftCanvas::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    border-right: 1px solid black;
-    top: 1%;
-    bottom: 1%;
-}
-.rightCanvas {
-    width: 75%;
-}
-#wholeCanvas {
-    display: flex;
-    flex-wrap: nowrap;
-    position: absolute;
-    z-index: 1;
-}
-.body {
+#body {
     overflow-x: hidden;
     width: 100%;
     max-width: 100%;
@@ -43,17 +32,6 @@ body {
 }
 a.navbar-brand {
     color: grey;
-}
-#leftNavIcon {
-    position: relative;
-}
-#rightNavIcon {
-    padding-top: 5%;
-    margin-left: 5%;
-    position: relative;
-}
-#navIcon {
-    display: flex;
 }
 div.centerDiv {
     margin: 0 auto;

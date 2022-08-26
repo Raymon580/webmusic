@@ -72,3 +72,13 @@ def register(request):
         return render(request, "audify/register.html", {
             "userForm": RegistrationForm()
         })
+
+
+@login_required(login_url='/login')
+def search(request):
+    return render(request, "audify/search.html")
+
+
+@login_required(login_url='/login')
+def library(request):
+    return render(request, "audify/library.html")
